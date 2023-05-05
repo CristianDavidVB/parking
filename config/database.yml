@@ -1,0 +1,25 @@
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: <%=ENV["POSTGRES_HOST"] %>
+  username: <%= ENV["POSTGRES_USERNAME"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
+  port: <%=ENV["POSTGRES_PORT"] %>
+
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: parking_development
+
+test:
+  <<: *default
+  database: parking_test
+
+
+production:
+  <<: *default
+  database: parking_production
+  username: parking
+  password: <%= ENV["PARKING_DATABASE_PASSWORD"] %>
